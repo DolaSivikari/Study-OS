@@ -1,0 +1,16 @@
+body:not(.studyos-assets-ready) .app,
+body:not(.studyos-assets-ready) .hamburger,
+body:not(.studyos-assets-ready) .sidebar-overlay,
+body:not(.studyos-assets-ready) .focus-overlay,
+body:not(.studyos-assets-ready) .study-timer,
+body:not(.studyos-assets-ready) .toast { display:none !important; }
+#studyosStartupGuard {
+    box-sizing:border-box; max-width:760px; margin:8vh auto; padding:28px;
+    font-family:Inter,Segoe UI,Arial,sans-serif; color:#172033; background:#fff;
+    border:1px solid #d9deea; border-radius:16px; box-shadow:0 16px 50px rgba(23,32,51,.12);
+}
+#studyosStartupGuard h1 { margin:0 0 8px; font-size:1.5rem; }
+#studyosStartupGuard p { margin:8px 0; line-height:1.55; color:#4a556b; }
+#studyosStartupGuard code { background:#f3f5f9; padding:2px 6px; border-radius:6px; }
+#studyosStartupGuard .startup-error { color:#9b1c1c; font-weight:700; }
+body.studyos-assets-ready #studyosStartupGuard { display:none !important; }

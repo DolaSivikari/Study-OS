@@ -1,0 +1,188 @@
+/* ═══════════════════════════════════════════════════════════════
+   STUDYOS — DESIGN TOKENS  (V62.6)
+   ═══════════════════════════════════════════════════════════════
+
+   The single source of truth for colour, spacing, radius, shadow,
+   typography and layout metrics. Loaded FIRST, before every other
+   stylesheet.
+
+   Why this file exists
+   -------------------
+   styles.css and design-system.css each declared a FULL palette, with
+   different values for the same names — --accent was #2563eb in one and
+   #315efb in the other, --bg-primary #f8fafc vs #f4f7fb, and so on for 46
+   tokens. design-system.css loaded second, so it silently won every
+   collision, which meant any rule written against styles.css's intent
+   rendered in a colour its author never chose. Four more :root blocks were
+   scattered across mobile.css and unification-v60.css. That is what made
+   spacing and colour drift between pages.
+
+   These values are the ones that were ACTUALLY WINNING the cascade before
+   consolidation — extracted mechanically, not re-picked — so this change is
+   visually lossless. tools/test-ui-v62-tokens.js proves it by recomputing
+   the effective token set and diffing against the pre-consolidation
+   snapshot.
+
+   Rules from here on
+   -------------------
+   * Declare a token ONCE, here. Never re-declare in a feature stylesheet.
+   * Feature stylesheets consume tokens; they do not define them.
+   * Changing a value here changes it everywhere, which is the point.
+
+   Breakpoints — canonical scale
+   -----------------------------
+   Use these five stops. New media queries must pick one.
+
+       1180px   desktop → narrow desktop   (sidebar compresses)
+        900px   narrow desktop → tablet    (sidebar collapses to drawer)
+        720px   tablet → phone             (single column, bottom nav)
+        520px   phone → small phone        (tighter padding, 2-up grids)
+        420px   small phone                (single-column grids)
+
+   The stylesheets currently contain 17 distinct max-width values — 1024,
+   1100 and 1180 all meaning "narrow desktop"; 680, 700, 720, 760 and 768 all
+   meaning "phone"; 420, 480, 520, 600 and 640 all meaning "small phone".
+   They accumulated one feature at a time and are the second half of the
+   layout-drift problem, after the duplicate palettes.
+
+   They have NOT been merged yet, deliberately. Collapsing 768 into 720 moves
+   the point at which a layout switches, and the only honest way to confirm
+   nothing breaks is to look at every page at each width on a real device.
+   Formatting was normalised so identical queries are written identically;
+   the merge itself is a separate, visually-verified change.
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+    --accent: #315efb;
+    --accent-hover: #2447d8;
+    --accent-light: rgba(49, 94, 251, 0.10);
+    --accent-strong: #1d3fbf;
+    --bg-primary: #f4f7fb;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #eef2f7;
+    --border: #d9e1ec;
+    --border-strong: #c6d0df;
+    --content-width: 1400px;
+    --control-height: 40px;
+    --danger: #c53b46;
+    --danger-light: rgba(197, 59, 70, 0.10);
+    --focus-ring: 0 0 0 3px rgba(49, 94, 251, 0.18);
+    --font-mono: "Cascadia Code", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    --font-sans: "Inter", "Aptos", "Segoe UI Variable", "Segoe UI", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+    --info: #2563eb;
+    --info-light: rgba(37, 99, 235, 0.10);
+    --leading-normal: 1.55;
+    --leading-relaxed: 1.7;
+    --leading-tight: 1.25;
+    --purple: #7656d6;
+    --purple-light: rgba(118, 86, 214, 0.10);
+    --radius-lg: 18px;
+    --radius-md: 13px;
+    --radius-sm: 9px;
+    --radius-xl: 24px;
+    --radius-xs: 6px;
+    --shadow-1: 0 1px 2px rgba(16, 24, 40, 0.035), 0 6px 18px rgba(16, 24, 40, 0.045);
+    --shadow-2: 0 2px 5px rgba(16, 24, 40, 0.06), 0 18px 48px rgba(16, 24, 40, 0.11);
+    --shadow-float: 0 24px 70px rgba(16, 24, 40, 0.18);
+    --sidebar-width: 276px;
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 20px;
+    --space-6: 24px;
+    --space-7: 32px;
+    --space-8: 40px;
+    --space-9: 48px;
+    --success: #16845b;
+    --success-light: rgba(22, 132, 91, 0.10);
+    --surface-1: #ffffff;
+    --surface-2: #f7f9fc;
+    --surface-3: #e5eaf2;
+    --text-2xl: 1.5rem;
+    --text-3xl: 1.875rem;
+    --text-base: 0.9375rem;
+    --text-faint: #98a2b3;
+    --text-lg: 1.125rem;
+    --text-md: 1rem;
+    --text-muted: #667085;
+    --text-primary: #172033;
+    --text-secondary: #344054;
+    --text-sm: 0.8125rem;
+    --text-xl: 1.25rem;
+    --text-xs: 0.75rem;
+    --topbar-height: 70px;
+    --ui-block-gap: 14px;
+    --ui-page-max: 1400px;
+    --ui-section-gap: 20px;
+    --warning: #b96b09;
+    --warning-light: rgba(185, 107, 9, 0.10);
+}
+
+/* Dark theme — follows the OS setting. */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --accent: #6d8cff;
+        --accent-hover: #86a0ff;
+        --accent-light: rgba(109, 140, 255, 0.14);
+        --accent-strong: #9bb0ff;
+        --bg-primary: #0c1220;
+        --bg-secondary: #121a2a;
+        --bg-tertiary: #182235;
+        --border: #28364d;
+        --border-strong: #3a4a65;
+        --danger: #ef6b73;
+        --danger-light: rgba(239, 107, 115, 0.13);
+        --focus-ring: 0 0 0 3px rgba(109, 140, 255, 0.22);
+        --info: #72a5ff;
+        --info-light: rgba(114, 165, 255, 0.14);
+        --purple: #ad8cff;
+        --purple-light: rgba(173, 140, 255, 0.14);
+        --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.22), 0 10px 24px rgba(0, 0, 0, 0.14);
+        --shadow-2: 0 2px 6px rgba(0, 0, 0, 0.28), 0 20px 52px rgba(0, 0, 0, 0.24);
+        --shadow-float: 0 30px 80px rgba(0, 0, 0, 0.45);
+        --success: #45c592;
+        --success-light: rgba(69, 197, 146, 0.13);
+        --surface-1: #121a2a;
+        --surface-2: #151f31;
+        --surface-3: #202d43;
+        --text-faint: #6f8099;
+        --text-muted: #92a1b7;
+        --text-primary: #edf2fb;
+        --text-secondary: #c8d2e2;
+        --warning: #f0ad4e;
+        --warning-light: rgba(240, 173, 78, 0.13);
+    }
+}
+
+/* Responsive layout metrics, widest breakpoint first. */
+@media (max-width: 1180px) {
+    :root {
+        --sidebar-width: 252px;
+    }
+}
+@media (max-height: 520px) and (orientation: landscape) and (max-width: 900px) {
+    :root {
+        --mobile-nav-height: 58px;
+        --topbar-height: 52px;
+    }
+}
+@media (max-width: 900px) {
+    :root {
+        --app-viewport-height: 100dvh;
+        --mobile-edge: max(10px, env(safe-area-inset-left));
+        --mobile-nav-height: 70px;
+        --mobile-sidebar-width: min(86vw, 320px);
+        --topbar-height: 64px;
+    }
+}
+@media (max-width: 720px) {
+    :root {
+        --text-base: 0.90625rem;
+    }
+}
+@media (max-width: 600px) {
+    :root {
+        --mobile-nav-height: 66px;
+    }
+}

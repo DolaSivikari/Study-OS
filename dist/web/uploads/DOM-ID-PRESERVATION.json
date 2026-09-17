@@ -1,0 +1,79 @@
+{
+  "dailyops": {
+    "old": 38,
+    "new": 38,
+    "same_multiset": true,
+    "missing": [],
+    "extra": []
+  },
+  "dashboard": {
+    "old": 57,
+    "new": 57,
+    "same_multiset": true,
+    "missing": [],
+    "extra": []
+  },
+  "journal": {
+    "old": 6,
+    "new": 6,
+    "same_multiset": true,
+    "missing": [],
+    "extra": []
+  },
+  "knowledge": {
+    "old": 12,
+    "new": 12,
+    "same_multiset": true,
+    "missing": [],
+    "extra": []
+  },
+  "network": {
+    "old": 9,
+    "new": 9,
+    "same_multiset": true,
+    "missing": [],
+    "extra": []
+  },
+  "planner": {
+    "old": 33,
+    "new": 33,
+    "same_multiset": true,
+    "missing": [],
+    "extra": []
+  },
+  "quran": {
+    "old": 8,
+    "new": 8,
+    "same_multiset": true,
+    "missing": [],
+    "extra": []
+  },
+  "reviewhub": {
+    "old": 18,
+    "new": 18,
+    "same_multiset": true,
+    "missing": [],
+    "extra": []
+  },
+  "strategy": {
+    "old": 9,
+    "new": 9,
+    "same_multiset": true,
+    "missing": [],
+    "extra": []
+  },
+  "study": {
+    "old": 69,
+    "new": 69,
+    "same_multiset": true,
+    "missing": [],
+    "extra": []
+  },
+  "system": {
+    "old": 23,
+    "new": 23,
+    "same_multiset": true,
+    "missing": [],
+    "extra": []
+  }
+}

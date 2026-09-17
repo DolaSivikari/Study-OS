@@ -1,0 +1,37 @@
+{
+  "data/quran-verses.js": {
+    "sha256": "15b8be2ad58a61f721e617663c0da069773e738dba35b5258c192a41db0f7baa",
+    "unchanged": true,
+    "bytes": 2662830
+  },
+  "data/quran-translations-tevhid.js": {
+    "sha256": "88102f1b4f40fbcbad16c846a53adafc865dee8014a5690e012fc6c5d6463097",
+    "unchanged": true,
+    "bytes": 1126727
+  },
+  "data/quran-surahs.js": {
+    "sha256": "6abc58cdd0fb05e5a0753362dc8a35fcdd0533c5442a01abb4a6af33178aeddb",
+    "unchanged": true,
+    "bytes": 12178
+  },
+  "data/quran-audio.js": {
+    "sha256": "a3052437425bc124387681aa37a8fc22882e0f643cf68a739b5cb9108e61fdb8",
+    "unchanged": true,
+    "bytes": 6188
+  },
+  "data/quran-word-audio.js": {
+    "sha256": "2fd9d4b3d3954e2294fa5163fb6041c272146b6d3fcb26e0546bb4da350774f8",
+    "unchanged": true,
+    "bytes": 5238
+  },
+  "data/quran-tevhid-meali-pages.js": {
+    "sha256": "4ab0f25059597a9c1283f316a69d339f5ac7fbe9d030f740c8626d4ee922961e",
+    "unchanged": true,
+    "bytes": 1771
+  },
+  "media/quran-reference/tevhid-meali.pdf": {
+    "sha256": "b079c3d7aba62ae433528d962a9822d65be30183ca12ddb5c0ee96d4d7e456df",
+    "unchanged": true,
+    "bytes": 5154091
+  }
+}

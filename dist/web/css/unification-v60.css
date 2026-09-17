@@ -1,0 +1,385 @@
+/* ======================================================================
+   STUDYOS V60 — PRODUCT DOCTRINE / CLAUDE DESIGN UNIFICATION
+   Loaded after styles.css, design-system.css, and mobile.css.
+
+   This layer activates the hierarchy demonstrated in the supplied
+   StudyOS Dashboard (baseline).dc.html and StudyOS.dc.html prototypes,
+   while preserving the live modular application, IDs, storage, routes,
+   renderers, and Quran data.
+   ====================================================================== */
+
+/* One product canvas and one vertical rhythm. */
+#pageContainer {
+    width: 100%;
+    max-width: var(--ui-page-max);
+    margin: 0 auto;
+}
+
+.studyos-page {
+    padding-bottom: 56px;
+}
+
+.studyos-page > * + * {
+    margin-top: 0;
+}
+
+.studyos-page > .page-header-primary {
+    margin-bottom: 14px !important;
+}
+
+.studyos-page > .filter-bar {
+    margin-bottom: 20px !important;
+}
+
+.tab-panel > .page-header-section:first-child {
+    margin-top: 0 !important;
+}
+
+/* Standard page hero: title, purpose, then action. */
+.page-header-primary {
+    width: 100%;
+    min-height: 84px;
+    padding: 6px 0 20px !important;
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 74%, transparent);
+}
+
+.page-header-primary > div:first-child,
+.page-header-primary > .page-header-layout,
+.page-header-primary > div[style*="justify-content:space-between"] {
+    width: 100%;
+}
+
+.page-header-layout,
+.page-header-primary > div[style*="display:flex"],
+.page-header-section > div[style*="display:flex"] {
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 16px !important;
+}
+
+.page-header-primary h1,
+.page-header-primary h2 {
+    margin: 0 !important;
+    font-size: clamp(1.55rem, 2vw, 1.9rem) !important;
+    font-weight: 780 !important;
+    letter-spacing: -0.045em !important;
+}
+
+.page-header-primary p,
+.page-header-primary .subtitle {
+    max-width: 780px;
+    margin: 6px 0 0 !important;
+    color: var(--text-muted) !important;
+    font-size: 0.88rem !important;
+    line-height: 1.55 !important;
+}
+
+/* Standard sub-screen header. */
+.page-header-section {
+    min-height: 62px;
+    padding: 15px 0 13px !important;
+    margin: 0 0 16px !important;
+    border-bottom: 1px solid var(--border);
+}
+
+.page-header-section h1,
+.page-header-section h2 {
+    margin: 0 !important;
+    font-size: 1.22rem !important;
+    font-weight: 730 !important;
+    letter-spacing: -0.03em !important;
+}
+
+.page-header-section p,
+.page-header-section .subtitle {
+    margin: 4px 0 0 !important;
+    color: var(--text-muted) !important;
+    font-size: 0.82rem !important;
+}
+
+/* One tab treatment across all modules. */
+.studyos-page > .filter-bar,
+.primary-tabs {
+    width: fit-content;
+    max-width: 100%;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scroll-snap-type: x proximity;
+}
+
+.studyos-page > .filter-bar .filter-btn,
+.primary-tabs .filter-btn {
+    scroll-snap-align: start;
+}
+
+/* One section label rhythm. */
+.ux-section-head,
+.ui-section-label {
+    margin: 28px 0 10px !important;
+    padding: 0;
+    color: var(--text-faint);
+    font-size: 0.69rem;
+    font-weight: 770;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+}
+
+/* One card language. Remove conflicting ad-hoc decoration. */
+.studyos-page .card,
+.studyos-page .panel,
+.studyos-page .summary-card,
+.studyos-page .stat {
+    border-color: var(--border);
+    border-radius: var(--radius-md);
+    background-color: var(--bg-secondary);
+    box-shadow: var(--shadow-1);
+}
+
+.studyos-page .card:not(.protocol-step-card):not(.quran-reader-card)[style*="background:linear-gradient"],
+.studyos-page .card:not(.protocol-step-card):not(.quran-reader-card)[style*="background: linear-gradient"] {
+    background: var(--bg-secondary) !important;
+}
+
+.studyos-page .card-header {
+    min-height: 28px;
+    align-items: flex-start;
+}
+
+.studyos-page .card-title {
+    color: var(--text-primary);
+    font-size: 0.96rem;
+    font-weight: 700;
+}
+
+/* Metric system used by Claude's unified prototype. */
+.metric-grid,
+.ui-metric-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(145px, 1fr)) !important;
+    gap: 12px !important;
+    margin-bottom: 20px !important;
+}
+
+.metric-card,
+.ui-metric-card,
+.card[style*="text-align:center;padding"],
+.card[style*="text-align: center;padding"],
+.card[style*="text-align:center; padding"] {
+    min-height: 104px !important;
+    display: grid !important;
+    align-content: center !important;
+    gap: 5px !important;
+    padding: 16px !important;
+    text-align: left !important;
+    background: var(--bg-secondary) !important;
+    border-color: var(--border) !important;
+}
+
+.metric-card > div:first-child,
+.ui-metric-card > div:first-child,
+.card[style*="text-align:center;padding"] > div[style*="font-weight:700"],
+.card[style*="text-align: center;padding"] > div[style*="font-weight:700"] {
+    margin: 0 !important;
+    color: var(--text-primary) !important;
+    font-family: var(--font-sans) !important;
+    font-size: 1.45rem !important;
+    font-weight: 770 !important;
+    line-height: 1.1 !important;
+    letter-spacing: -0.04em !important;
+}
+
+.metric-card > div:last-child,
+.ui-metric-card > div:last-child,
+.card[style*="text-align:center;padding"] > div[style*="text-transform:uppercase"],
+.card[style*="text-align: center;padding"] > div[style*="text-transform:uppercase"] {
+    margin-top: 3px !important;
+    color: var(--text-muted) !important;
+    font-size: 0.69rem !important;
+    font-weight: 730 !important;
+    letter-spacing: 0.07em !important;
+    text-transform: uppercase !important;
+}
+
+.metric-card > div[style*="font-size:2.5rem"],
+.ui-metric-card > div[style*="font-size:2.5rem"],
+.card[style*="text-align:center;padding"] > div[style*="font-size:2.5rem"] {
+    display: none !important;
+}
+
+/* Dynamic roots should inherit the same visual rhythm. */
+#goalStats,
+#journalStats,
+#knowledgeStats,
+#scienceSummary,
+#pmpProcessGrid,
+#systemHealthRoot .stats-grid,
+#insightsContent .stats-grid {
+    gap: 12px !important;
+}
+
+/* Calm status language: use color as signal, not decoration. */
+.studyos-page .card[style*="border-left:3px"],
+.studyos-page .card[style*="border-left: 3px"] {
+    border-left-width: 3px !important;
+}
+
+.studyos-page .progress {
+    height: 8px;
+    border-radius: 999px;
+}
+
+.studyos-page .progress-fill {
+    border-radius: inherit;
+}
+
+/* Standard list/card spacing. */
+.studyos-page .list-item,
+.studyos-page .contact-card,
+.studyos-page .journal-card,
+.studyos-page .habit-card,
+.studyos-page .goal-card {
+    border-radius: var(--radius-sm);
+}
+
+.studyos-page .list-item + .list-item,
+.studyos-page .contact-card + .contact-card,
+.studyos-page .journal-card + .journal-card,
+.studyos-page .habit-card + .habit-card,
+.studyos-page .goal-card + .goal-card {
+    margin-top: 8px;
+}
+
+/* Design-prototype components retained by the live dashboard and Study page. */
+.sparkline { display:flex; align-items:flex-end; gap:3px; height:34px; margin-top:8px; }
+.sparkline-bar { flex:1; min-height:2px; background:var(--accent); border-radius:2px 2px 0 0; }
+.daily-quran-card { border:1px solid var(--border); border-radius:var(--radius-md); background:var(--bg-secondary); box-shadow:var(--shadow-1); padding:18px; margin-bottom:16px; }
+.daily-quran-head { display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap; margin-bottom:12px; }
+.daily-quran-kicker { color:var(--text-faint); font-size:0.6875rem; font-weight:760; letter-spacing:.11em; text-transform:uppercase; }
+.daily-quran-head h3 { margin:4px 0 2px; font-size:1.05rem; }
+.daily-quran-head p { margin:0; color:var(--text-muted); font-size:0.8rem; }
+.daily-quran-actions { display:flex; gap:8px; flex-wrap:wrap; }
+.ux-quick-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; }
+.ux-qa-btn { justify-content:flex-start; gap:8px; }
+.ux-qa-ico { display:inline-flex; }
+.ux-dir-row { display:flex; flex-direction:column; padding:7px 0; border-bottom:1px solid var(--border); cursor:pointer; }
+.ux-dir-row:hover .ux-dir-q { color:var(--accent); }
+.ux-dir-q { font-size:0.85rem; font-weight:600; color:var(--text-secondary); }
+.ux-dir-path { font-size:0.72rem; color:var(--text-faint); margin-top:1px; }
+.pathway-card { border:1px solid var(--border); border-radius:var(--radius-sm); background:var(--surface-2); padding:12px; }
+.pathway-header { display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:4px; }
+.pathway-title { font-weight:700; font-size:0.9rem; }
+.pathway-badge { font-size:0.68rem; font-weight:700; color:var(--accent); background:var(--accent-light); border-radius:999px; padding:3px 8px; }
+.pathway-desc { font-size:0.8rem; color:var(--text-muted); margin-bottom:8px; }
+.wisdom-quote { font-style:italic; line-height:1.55; color:var(--text-secondary); }
+.wisdom-source { margin-top:8px; color:var(--text-muted); font-size:0.85rem; }
+.commitment-load-track { height:10px; border-radius:999px; background:var(--surface-3); overflow:hidden; }
+.commitment-load-fill { height:100%; border-radius:inherit; background:linear-gradient(90deg,var(--accent),color-mix(in srgb,var(--accent) 60%,var(--warning))); }
+.tag-chip { display:inline-block; padding:3px 8px; border-radius:999px; background:var(--accent-light); color:var(--accent); font-weight:600; }
+.learning-ladder { display:flex; align-items:stretch; gap:8px; flex-wrap:wrap; margin:16px 0; }
+.learning-ladder-step { flex:1; min-width:130px; border:1px solid var(--border); border-radius:var(--radius-sm); background:var(--bg-secondary); padding:12px; box-shadow:var(--shadow-1); }
+.learning-ladder-step span { font-family:var(--font-mono); font-size:0.72rem; color:var(--accent); font-weight:760; }
+.learning-ladder-step strong { display:block; margin-top:2px; }
+.learning-ladder-step small { color:var(--text-muted); }
+.learning-ladder-arrow { display:grid; place-items:center; color:var(--text-faint); }
+.learning-workspace { display:grid; grid-template-columns:minmax(0,1.7fr) minmax(260px,.9fr); gap:16px; align-items:start; margin-bottom:16px; }
+.learning-rail { display:grid; gap:14px; }
+.learning-use-list { margin:8px 0 0 18px; color:var(--text-secondary); font-size:0.85rem; line-height:1.7; }
+.learning-action-card { display:flex; align-items:center; gap:12px; text-align:left; cursor:pointer; }
+.learning-action-icon { font-size:1.3rem; }
+.section-heading-row { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:12px; }
+.disc-heatmap-day { flex:1; text-align:center; padding:10px 4px; background:var(--surface-2); border:1px solid var(--border); border-radius:var(--radius-sm); }
+
+/* Quran remains part of the same product while protecting its reading surface. */
+#quran .quran-reader-shell,
+#quran .quran-mushaf-shell,
+#quranReadRoot > .card {
+    border-radius: var(--radius-lg);
+}
+
+#quran .quran-mushaf-page,
+#quran .quran-page-surface {
+    box-shadow: none;
+}
+
+/* Responsive behavior for the actual inline grids in page templates/renderers. */
+@media (max-width: 1100px) {
+    .summary-strip { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+    .studyos-page [style*="grid-template-columns:1fr 1.2fr 1fr"],
+    .studyos-page [style*="grid-template-columns:1fr 1fr 1fr"],
+    .studyos-page [style*="grid-template-columns:repeat(3"] {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+}
+
+@media (max-width: 760px) {
+    .main { padding-left: 14px; padding-right: 14px; }
+    .studyos-page { padding-bottom: 88px; }
+
+    .page-header-primary {
+        min-height: auto;
+        padding: 4px 0 14px !important;
+    }
+
+    .page-header-layout,
+    .page-header-primary > div[style*="display:flex"],
+    .page-header-section > div[style*="display:flex"] {
+        align-items: flex-start !important;
+        flex-direction: column !important;
+    }
+
+    .page-header-primary h1,
+    .page-header-primary h2 { font-size: 1.45rem !important; }
+
+    .page-header-primary .btn,
+    .page-header-section .btn { max-width: 100%; }
+
+    #dashboard .page-header-primary .page-header-layout > div:last-child {
+        width: 100%;
+        display: grid !important;
+        grid-template-columns: auto minmax(0, 1fr) minmax(0, 1fr);
+        align-items: stretch;
+        gap: 8px !important;
+    }
+
+    #dashboard .page-header-primary .badge {
+        align-self: stretch;
+        display: inline-flex;
+        align-items: center;
+        white-space: nowrap;
+    }
+
+    .studyos-page > .filter-bar {
+        width: calc(100vw - 28px);
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .summary-strip { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+    .metric-grid,
+    .ui-metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+
+    .studyos-page [style*="grid-template-columns:1fr 1.15fr"],
+    .studyos-page [style*="grid-template-columns:1fr 1.2fr 1fr"],
+    .studyos-page [style*="grid-template-columns:1fr 1fr 1fr"],
+    .studyos-page [style*="grid-template-columns:1fr 1fr"],
+    .studyos-page [style*="grid-template-columns:minmax(0,1.7fr)"],
+    .studyos-page [style*="grid-template-columns:repeat(3"],
+    .studyos-page [style*="grid-template-columns:repeat(4"] {
+        grid-template-columns: 1fr !important;
+    }
+
+    .learning-workspace { grid-template-columns: 1fr; }
+    .ux-quick-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .daily-quran-card { padding: 14px; }
+    .card, .panel { padding: 16px; }
+}
+
+@media (max-width: 420px) {
+    .summary-strip,
+    .metric-grid,
+    .ui-metric-grid { grid-template-columns: 1fr 1fr !important; }
+    .summary-card { min-height: 100px; }
+    .ux-quick-grid { grid-template-columns: 1fr 1fr; }
+    .learning-ladder-step { min-width: 100%; }
+    .learning-ladder-arrow { display: none; }
+}

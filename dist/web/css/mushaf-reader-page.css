@@ -1,0 +1,549 @@
+/* StudyOS V62 — dedicated Mushaf Reader route */
+/* V63.1: the route was capped at 1320px and the sheet at 1040px inside it,
+   so a wide monitor showed a narrow column with empty space either side. The
+   sheet now takes the width it is given. */
+#mushaf.mushaf-focus-page {
+    width: min(100%, 1760px);
+    max-width: none;
+    margin-inline: auto;
+    padding-bottom: 40px;
+}
+
+/* Carries .page-header .page-header-primary too (V62.3), so these win where
+   the shared rules would otherwise centre-align and strip the card padding. */
+.mushaf-dedicated-header.page-header-primary {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    min-height: 0;
+    margin-bottom: 16px;
+    padding: 18px 20px !important;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg, 16px);
+    background:
+        radial-gradient(circle at 86% 10%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 34%),
+        var(--bg-secondary);
+    box-shadow: var(--shadow-1);
+}
+
+.mushaf-dedicated-title { min-width: 0; }
+.mushaf-dedicated-kicker {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--accent);
+    font-size: .68rem;
+    font-weight: 800;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+.mushaf-dedicated-title h2 { margin: 0; font-size: clamp(1.35rem, 2.2vw, 2rem); }
+.mushaf-dedicated-title p {
+    max-width: 780px;
+    margin: 7px 0 0;
+    color: var(--text-muted);
+    line-height: 1.55;
+}
+.mushaf-dedicated-actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+
+/* V63.2 — the workspace is the reading surface, so it gets a frame of its own
+   and room to breathe. The sheet is then centred inside it, the way a printed
+   page sits centred on a desk rather than flush to one edge. */
+.mushaf-reader-workspace {
+    display: grid;
+    gap: 12px;
+    padding: clamp(12px, 1.4vw, 22px);
+    border: 1px solid var(--border);
+    border-radius: clamp(16px, 1.6vw, 24px);
+    background: color-mix(in srgb, var(--bg-secondary) 55%, transparent);
+}
+
+/* V62.2 — command bar alignment.
+   Every control now sits on one 36px baseline. The previous version mixed
+   btn-sm (~30px), form-select (~40px) and a bare font-percent button inside
+   three independently-aligned groups, so nothing lined up horizontally. */
+.mushaf-reader-commandbar {
+    --mushaf-control-height: 36px;
+    position: sticky;
+    top: calc(var(--app-topbar-height, 62px) + 8px);
+    z-index: 32;
+    display: grid;
+    /* V63.2: fourth column is the page-jump, moved up from the deleted
+       page-meta strip. */
+    grid-template-columns: minmax(240px, 1.1fr) auto auto auto;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--bg-secondary) 94%, transparent);
+    box-shadow: var(--shadow-2, 0 8px 28px rgba(20, 31, 55, .1));
+    backdrop-filter: blur(14px);
+}
+
+/* One shared baseline for every control in the bar. */
+.mushaf-reader-commandbar .btn,
+.mushaf-reader-commandbar .form-select,
+.mushaf-reader-commandbar .quran-font-percent {
+    height: var(--mushaf-control-height);
+    min-height: var(--mushaf-control-height);
+    padding-block: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .78rem;
+    line-height: 1;
+}
+.mushaf-reader-commandbar .form-select { padding-inline: 10px 26px; }
+
+.mushaf-reader-commandbar .quran-surah-controls {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+    margin: 0;
+}
+.mushaf-reader-commandbar .quran-surah-select { min-width: 0; width: 100%; }
+.mushaf-reader-command-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+}
+.mushaf-reader-compact-options {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    min-width: 0;
+}
+.mushaf-reader-compact-options .form-select { min-width: 128px; }
+
+/* Text-size stepper reads as one segmented control rather than three
+   loose buttons at three different heights. */
+.mushaf-reader-commandbar .quran-font-controls {
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+    height: var(--mushaf-control-height);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    overflow: hidden;
+    background: var(--bg-tertiary);
+}
+.mushaf-reader-commandbar .quran-font-controls .btn {
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    min-width: 34px;
+    padding-inline: 0;
+}
+.mushaf-reader-commandbar .quran-font-controls .btn:hover { background: var(--bg-secondary); }
+.mushaf-reader-commandbar .quran-font-percent {
+    min-width: 50px;
+    border: 0;
+    border-inline: 1px solid var(--border);
+    border-radius: 0;
+    background: transparent;
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+.mushaf-reader-options-card {
+    padding: 12px 14px;
+}
+.mushaf-reader-options-card > summary {
+    cursor: pointer;
+    color: var(--text-secondary);
+    font-size: .78rem;
+    font-weight: 750;
+    list-style: none;
+}
+.mushaf-reader-options-card > summary::-webkit-details-marker { display: none; }
+.mushaf-reader-options-card > summary::after { content: '＋'; float: right; color: var(--text-faint); }
+.mushaf-reader-options-card[open] > summary::after { content: '−'; }
+.mushaf-reader-options-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+}
+.mushaf-reader-options-grid .quran-option-group { min-width: 0; }
+
+#mushaf .quran-follow-bar { margin: 0; }
+#mushaf .quran-mushaf-reader { gap: 8px; }
+
+/* V62.2 — full-page reading surface.
+   The stage now claims everything left in the viewport after the app chrome
+   instead of a fixed 76dvh cap, and the paper fills the stage rather than
+   sitting inside it at a fixed 760px. --mushaf-chrome accounts for the topbar,
+   the sticky command bar, and page padding. */
+/* V63.2: the page-meta strip is gone (~46px) and the chrome allowance drops
+   with it, so the sheet gets that height back as reading room. */
+#mushaf {
+    --mushaf-chrome: calc(var(--app-topbar-height, 62px) + 96px);
+}
+/* V62.5 — one frame, not three.
+   The sheet used to sit inside a .quran-surah-card, inside the stage border,
+   inside the paper's own inset rule: three nested boxes, which is what made
+   the page feel small and boxed-in. The card chrome is dropped here so the
+   sheet itself is the frame, and it runs the full width of the route. */
+#mushaf .quran-surah-card {
+    padding: 0;
+    border: 0;
+    background: none;
+    box-shadow: none;
+    overflow: visible;
+}
+#mushaf .quran-surah-header { margin-bottom: 10px; padding: 0 2px; }
+
+#mushaf .quran-mushaf-stage {
+    height: calc(100dvh - var(--mushaf-chrome));
+    min-height: 520px;
+    max-height: none;
+    border-radius: 20px;
+}
+/* V63.2: the sheet is centred in the stage with a page-like maximum width,
+   rather than stretched edge to edge. On a wide screen that reads as a page
+   on a surface; the stage keeps the extra width as margin. */
+#mushaf .quran-mushaf-paper {
+    width: min(100%, 1180px);
+    min-height: calc(100dvh - var(--mushaf-chrome) - 2px);
+    margin-inline: auto;
+    /* The bottom value clears the corner turn buttons (46px + 14px inset),
+       so the last line of a page is always reachable — previously the
+       floating bar overlapped it and it could not be scrolled into view. */
+    padding: clamp(30px, 3.4vw, 58px) clamp(26px, 4.5vw, 76px) clamp(96px, 8vw, 132px);
+}
+/* Scroll room: without the meta strip the stage is taller, and this keeps a
+   full turn-button's clearance below the last line in every mode. */
+#mushaf .quran-mushaf-stage { scroll-padding-bottom: 72px; }
+#mushaf .quran-mushaf-arabic { line-height: 2.32; }
+
+/* V63.1 — Arabic + meaning side by side, so the sheet keeps a whole page.
+   Below 1100px this collapses back to the stacked drawer. */
+@media (min-width: 1100px) {
+    .quran-mushaf-split {
+        display: grid;
+        grid-template-columns: minmax(0, 1.45fr) minmax(320px, 1fr);
+        gap: clamp(20px, 2.4vw, 40px);
+        align-items: start;
+    }
+    /* RTL: the sheet sits on the right, the meaning column on its left,
+       which matches the direction the eye already travels. */
+    .quran-mushaf-split > .quran-mushaf-split-page { order: 2; }
+    .quran-mushaf-split > .quran-mushaf-meaning-drawer {
+        order: 1;
+        position: sticky;
+        top: 0;
+        max-height: calc(100dvh - var(--mushaf-chrome) - 60px);
+        overflow-y: auto;
+        padding-inline-end: 6px;
+        border-top: 0;
+        border-inline-end: 1px solid var(--border);
+    }
+    .quran-mushaf-split > .quran-mushaf-meaning-drawer > summary {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        background: var(--bg-secondary);
+        padding-block: 6px;
+    }
+}
+
+/* Auto-fit sets the Arabic size inline after measuring, so nothing here may
+   use !important against it. The stage keeps overflow:auto deliberately — if
+   a page is so dense that even the minimum readable size overflows, it must
+   still be scrollable rather than clipped. */
+#mushaf .quran-mushaf-paper.is-auto-fitted { min-height: 0; }
+#mushaf .quran-mushaf-paper.is-auto-fitted > footer { position: static; margin-top: 18px; text-align: center; }
+/* The meaning drawer is the usual victim of the clipped-last-verse bug. */
+#mushaf .quran-mushaf-meaning-drawer { margin-bottom: 8px; }
+#mushaf .quran-mushaf-paper > footer { bottom: clamp(60px, 5.5vw, 84px); }
+
+/* V62.5 — page turning lives in the two bottom corners of the sheet, the
+   way a printed Mushaf is turned. Nothing crosses the middle of the page,
+   so the last line is never covered. */
+#mushaf .quran-mushaf-reader { position: relative; }
+#mushaf .quran-mushaf-navigation {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    display: block;
+    padding: 0;
+    border: 0;
+    background: none;
+    backdrop-filter: none;
+    box-shadow: none;
+    pointer-events: none;   /* only the two buttons are interactive */
+}
+.quran-mushaf-turn {
+    position: absolute;
+    bottom: 14px;
+    width: 46px;
+    height: 46px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--bg-secondary) 92%, transparent);
+    color: var(--text-secondary);
+    font-size: 1.35rem;
+    line-height: 1;
+    cursor: pointer;
+    pointer-events: auto;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 4px 16px rgba(20, 31, 55, .14);
+    opacity: .5;
+    transition: opacity .16s ease, background .16s ease, transform .16s ease;
+}
+.quran-mushaf-turn-next { inset-inline-start: 14px; }   /* RTL: next is left */
+.quran-mushaf-turn-prev { inset-inline-end: 14px; }
+#mushaf .quran-mushaf-reader:hover .quran-mushaf-turn,
+.quran-mushaf-turn:focus-visible { opacity: 1; }
+.quran-mushaf-turn:hover:not(:disabled) {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    transform: scale(1.06);
+}
+.quran-mushaf-turn:disabled { opacity: .16; cursor: default; }
+
+/* V63.2 — page jump in the command bar, on the same 36px baseline. */
+.mushaf-commandbar-jump {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+    color: var(--text-muted);
+    font-size: .7rem;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    font-weight: 800;
+    white-space: nowrap;
+}
+.mushaf-commandbar-jump input.form-input {
+    width: 62px;
+    height: var(--mushaf-control-height);
+    min-height: var(--mushaf-control-height);
+    padding: 0 6px;
+    border-radius: 9px;
+    font-size: .82rem;
+    font-weight: 800;
+    text-align: center;
+    text-transform: none;
+}
+.mushaf-commandbar-jump em { font-style: normal; opacity: .7; }
+
+/* V62.5 — recitation transport, visible only in focus view. Sits opposite
+   the Exit button so the two never collide. */
+.mushaf-focus-transport {
+    display: none;
+    position: fixed;
+    top: max(12px, env(safe-area-inset-top));
+    left: max(12px, env(safe-area-inset-left));
+    z-index: 1200;
+    gap: 4px;
+    padding: 4px;
+    border: 1px solid color-mix(in srgb, var(--text-primary) 18%, transparent);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--bg-secondary) 94%, transparent);
+    box-shadow: var(--shadow-2);
+    backdrop-filter: blur(12px);
+}
+body.mushaf-reading-focus .mushaf-focus-transport { display: inline-flex; align-items: center; }
+.mushaf-focus-transport-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--text-primary);
+    font-size: .9rem;
+    line-height: 1;
+    cursor: pointer;
+}
+.mushaf-focus-transport-btn:hover:not(:disabled) { background: var(--bg-tertiary); }
+.mushaf-focus-transport-btn:disabled { opacity: .3; cursor: default; }
+.mushaf-focus-transport-btn[data-state="playing"] { color: var(--accent); }
+/* A quiet pulse while audio is running, so the control reads as live even
+   at a glance in an otherwise empty focus view. */
+.mushaf-focus-transport[data-playback="playing"] {
+    border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+}
+
+.mushaf-focus-exit {
+    display: none;
+    position: fixed;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    z-index: 1200;
+    min-height: 42px;
+    padding: 0 14px;
+    border: 1px solid color-mix(in srgb, var(--text-primary) 18%, transparent);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--bg-secondary) 94%, transparent);
+    color: var(--text-primary);
+    font: inherit;
+    font-size: .76rem;
+    font-weight: 750;
+    box-shadow: var(--shadow-2);
+    backdrop-filter: blur(12px);
+    cursor: pointer;
+}
+
+body.mushaf-reading-focus { overflow: hidden; }
+body.mushaf-reading-focus .sidebar,
+body.mushaf-reading-focus .app-topbar,
+body.mushaf-reading-focus .mobile-nav,
+body.mushaf-reading-focus .hamburger,
+body.mushaf-reading-focus .sidebar-overlay,
+body.mushaf-reading-focus #commitmentHeadsUp { display: none !important; }
+body.mushaf-reading-focus .app { display: block; }
+body.mushaf-reading-focus .main {
+    width: 100%;
+    min-height: 100dvh;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+body.mushaf-reading-focus #pageContainer { width: 100%; }
+body.mushaf-reading-focus .page { display: none !important; }
+/* V63.3 — focus view is now a real flex column that fills exactly 100dvh.
+ *
+ * It used to be a block stack of calc() heights that added up to 100dvh + 90px:
+ *   #mushaf padding 20 · workspace padding 44 · border 2 · surah header 50 ·
+ *   grid gap 12 · stage margin-top 58 · stage calc(100dvh − 96)
+ * With overflow:hidden on the page, that last 90px was silently clipped — and
+ * the page-turn nav, absolutely positioned at the bottom of the reader, lived
+ * inside the clipped strip. The buttons were rendered the whole time; they were
+ * simply below the cut. That is also why it never felt like a full page.
+ *
+ * Every element in the chain now declares flex:1/min-height:0 instead of a
+ * height derived by arithmetic, so nothing can drift out of the viewport again
+ * when a row is added or removed.
+ */
+body.mushaf-reading-focus #mushaf.page.active {
+    display: flex !important;
+    flex-direction: column;
+    width: 100%;
+    max-width: none;
+    height: 100dvh;
+    padding: max(10px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(10px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+    overflow: hidden;
+}
+/* Focus means focus: the dedicated header, the options card and the card
+   header ("Page 4 of 604" / Open Listen tools) all step aside. The page
+   number is already printed on the sheet itself. */
+body.mushaf-reading-focus .mushaf-dedicated-header,
+body.mushaf-reading-focus .mushaf-reader-options-card,
+body.mushaf-reading-focus #mushaf .quran-surah-header { display: none; }
+
+body.mushaf-reading-focus #quranMushafRoot,
+body.mushaf-reading-focus .mushaf-reader-workspace,
+body.mushaf-reading-focus #mushaf .quran-surah-card,
+body.mushaf-reading-focus #mushaf .quran-mushaf-reader {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;   /* without this a flex child refuses to shrink below content */
+    height: auto;
+}
+/* The workspace frame belongs to the windowed view; in focus the sheet is
+   the only surface. */
+body.mushaf-reading-focus .mushaf-reader-workspace {
+    padding: 0;
+    border: 0;
+    background: none;
+    gap: 0;
+}
+body.mushaf-reading-focus .mushaf-reader-commandbar {
+    position: fixed;
+    top: max(10px, env(safe-area-inset-top));
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(calc(100% - 150px), 980px);
+    z-index: 1100;
+    opacity: .18;
+    transition: opacity .18s ease;
+}
+body.mushaf-reading-focus .mushaf-reader-commandbar:hover,
+body.mushaf-reading-focus .mushaf-reader-commandbar:focus-within { opacity: 1; }
+body.mushaf-reading-focus .mushaf-reader-workspace > .quran-follow-bar { display: none; }
+
+/* Clearance for the fixed command bar floating at the top. Padding on the
+   reader, not a margin on the stage, so it is inside the flex box and
+   accounted for rather than added on top of a computed height. */
+body.mushaf-reading-focus #mushaf .quran-mushaf-reader { padding-top: 56px; }
+body.mushaf-reading-focus #mushaf .quran-mushaf-stage {
+    flex: 1;
+    min-height: 0;
+    max-height: none;
+    height: auto;      /* the flex row decides; no arithmetic to drift */
+    margin-top: 0;
+}
+body.mushaf-reading-focus #mushaf .quran-mushaf-paper { min-height: 100%; }
+/* V63.2 — page turning must exist in focus view too. It is the only reading
+   surface where you cannot reach any other control, so the arrows stay fully
+   visible rather than fading until hover. */
+body.mushaf-reading-focus #mushaf .quran-mushaf-navigation { display: block; }
+body.mushaf-reading-focus .quran-mushaf-turn {
+    opacity: 1;
+    width: 52px;
+    height: 52px;
+    bottom: max(18px, env(safe-area-inset-bottom));
+    font-size: 1.5rem;
+}
+body.mushaf-reading-focus .quran-mushaf-turn-next { inset-inline-start: max(18px, env(safe-area-inset-left)); }
+body.mushaf-reading-focus .quran-mushaf-turn-prev { inset-inline-end: max(18px, env(safe-area-inset-right)); }
+body.mushaf-reading-focus .mushaf-focus-exit { display: inline-flex; align-items: center; justify-content: center; }
+
+@media (max-width: 980px) {
+    .mushaf-reader-commandbar { grid-template-columns: 1fr auto; }
+    .mushaf-reader-compact-options { grid-column: 1 / -1; }
+    .mushaf-reader-options-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 720px) {
+    #mushaf.mushaf-focus-page { padding-inline: 0; }
+    .mushaf-dedicated-header { margin-inline: 0; padding: 14px; border-radius: 14px; }
+    .mushaf-dedicated-header { display: grid; }
+    .mushaf-dedicated-actions { justify-content: flex-start; }
+    .mushaf-reader-commandbar {
+        position: static;
+        grid-template-columns: 1fr;
+        padding: 9px;
+        border-radius: 13px;
+    }
+    .mushaf-reader-command-actions { justify-content: space-between; }
+    .mushaf-reader-compact-options { width: 100%; overflow-x: auto; padding-bottom: 2px; }
+    .mushaf-reader-options-grid { grid-template-columns: 1fr; }
+    /* Phone: the bottom nav bar and page header eat more chrome, and the
+       floating pill has to clear the mobile tab bar. */
+    #mushaf { --mushaf-chrome: 208px; }
+    #mushaf .quran-mushaf-stage { min-height: 420px; border-radius: 14px; }
+    /* Bottom padding clears the corner turn buttons on touch too. */
+    #mushaf .quran-mushaf-paper { padding: 22px 16px 88px; }
+    #mushaf .quran-mushaf-paper > footer { bottom: 56px; }
+    /* No hover on touch: the turn buttons stay visible, and sit slightly
+       higher so they clear the mobile tab bar. */
+    .quran-mushaf-turn { opacity: 1; width: 42px; height: 42px; bottom: 10px; }
+    .quran-mushaf-turn-next { inset-inline-start: 10px; }
+    .quran-mushaf-turn-prev { inset-inline-end: 10px; }
+
+    body.mushaf-reading-focus .mushaf-reader-commandbar {
+        display: none;
+    }
+    /* Phone focus view hides the command bar entirely, so no top clearance is
+       needed. Height stays flex-driven — the calc() that used to live here is
+       exactly the kind of arithmetic that pushed the page-turn nav off screen. */
+    body.mushaf-reading-focus #mushaf .quran-mushaf-reader { padding-top: 0; }
+}

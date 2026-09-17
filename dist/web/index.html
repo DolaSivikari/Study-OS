@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#315efb">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>StudyOS V62 — Dedicated Mushaf Reader</title>
+    <!-- V62.6: design tokens load FIRST and are the only place any
+         --custom-property is declared. See css/tokens.css. -->
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/design-system.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <link rel="stylesheet" href="css/unification-v60.css">
+    <link rel="stylesheet" href="css/claude-design-v61.css">
+    <link rel="stylesheet" href="css/mushaf-reader-page.css">
+    <link rel="stylesheet" href="css/startup-guard.css">
+    <script>window.STUDYOS_BUILD={"version":"V62","target":"web","generatedAt":"2026-09-17T15:41:11.014Z"};</script>
+</head>
+<body>
+    <div id="studyosStartupGuard" role="status" aria-live="polite">
+        <h1>Loading StudyOS…</h1>
+        <p>The application is checking its styles, modules, and page templates.</p>
+    </div>
+    <div id="appShell"></div>
+
+    <!-- Scripts (order matters!) -->
+    <script src="js/app-shell.js"></script>
+    <!-- Page templates: must load before page-loader.js reads window.STUDYOS_PAGES -->
+    <script src="pages/dashboard.page.js"></script>
+    <script src="pages/dailyops.page.js"></script>
+    <script src="pages/planner.page.js"></script>
+    <script src="pages/study.page.js"></script>
+    <script src="pages/knowledge.page.js"></script>
+    <script src="pages/strategy.page.js"></script>
+    <script src="pages/journal.page.js"></script>
+    <script src="pages/reviewhub.page.js"></script>
+    <script src="pages/network.page.js"></script>
+    <script src="pages/system.page.js"></script>
+    <script src="pages/quran.page.js"></script>
+    <script src="pages/mushaf.page.js"></script>
+    <!-- Page loader: injects page fragments from window.STUDYOS_PAGES into #pageContainer -->
+    <script src="js/page-loader.js"></script>
+
+    <!-- Modal templates: must load before modal-loader.js reads window.STUDYOS_MODALS -->
+    <script src="modals/goalModal.modal.js"></script>
+    <script src="modals/taskModal.modal.js"></script>
+    <script src="modals/timeModal.modal.js"></script>
+    <script src="modals/habitModal.modal.js"></script>
+    <script src="modals/flashcardModal.modal.js"></script>
+    <script src="modals/contactModal.modal.js"></script>
+    <script src="modals/interactionModal.modal.js"></script>
+    <script src="modals/reviewDetailModal.modal.js"></script>
+    <script src="modals/eventModal.modal.js"></script>
+    <script src="modals/journalModal.modal.js"></script>
+    <script src="modals/knowledgeModal.modal.js"></script>
+    <script src="modals/quickCaptureModal.modal.js"></script>
+    <script src="modals/decisionModal.modal.js"></script>
+    <script src="modals/qualityReviewModal.modal.js"></script>
+    <script src="modals/flVarEditModal.modal.js"></script>
+    <script src="modals/compoundingGraphModal.modal.js"></script>
+    <script src="modals/operatorConflictModal.modal.js"></script>
+    <script src="modals/modelGraphModal.modal.js"></script>
+    <script src="modals/commitmentCenterModal.modal.js"></script>
+    <!-- Modal loader: injects modal fragments from window.STUDYOS_MODALS into #modalContainer -->
+    <script src="js/modal-loader.js"></script>
+
+    <!-- Shared contracts: routes/tabs/required IDs/functions, read by
+         js/diagnostics.js (runContractAudit) and tools/verify.js -->
+    <script defer src="data/contracts.js"></script>
+    <!-- V25: optional data-action delegated click handler (additive,
+         does not replace any existing onclick handler) -->
+    <script defer src="js/action-registry.js"></script>
+    <!-- V56 (audit R10): lazy loader for the four heaviest feature modules
+         (diagnostics, guide, framework-lab, pmp-tools) — they load on first
+         tab entry via script injection; the Diagnostics tab loads all of
+         them so the integrity surface always sees the complete app. -->
+    <script defer src="js/module-loader.js"></script>
+    <script defer src="data/constants.js"></script>
+    <script defer src="data/science-evidence.js"></script>
+    <script defer src="data/pmp-scenarios-v29.js"></script>
+    <script defer src="js/core.js"></script>
+    <script defer src="js/icon-system.js"></script>
+    <script defer src="js/commitment-intelligence.js"></script>
+    <script defer src="js/adaptive-profile.js"></script>
+    <script defer src="js/quality-loop.js"></script>
+
+    <!-- Data layer: doctrine library + intelligence + learning engine -->
+    <script defer src="data/doctrine-library.js"></script>
+    <script defer src="data/source-registry.js"></script>
+    <!-- Quran data (V52/V56): verbatim Arabic, surah metadata, validated audio
+         references extracted from the user-provided Quran database, and the
+         exact Tevhid Meali import. V56: the archived Diyanet data file was
+         deleted (audit R4 — dead 1.04 MB asset, user decision), and the two
+         heavy datasets (verses + Tevhid Meali) are lazy-loaded on first Quran
+         use via js/quran-data-loader.js (audit R9). -->
+    <script defer src="data/quran-surahs.js"></script>
+    <!-- V62.4: durable IndexedDB cache for the Quran.com word layers. Loads
+         before quran-word-data.js, which reads through it. Uses its own
+         database, so the 54 registered storage keys are untouched. -->
+    <script defer src="js/quran-offline-cache.js"></script>
+    <script defer src="js/quran-data-loader.js"></script>
+    <script defer src="js/quran-validator.js"></script>
+    <script defer src="data/quran-audio.js"></script>
+    <!-- V55: registry/provenance for the optional Quran.com word-level layers
+         (word timing, word-by-word text, tajweed), adapted from Mahfuz (MIT). -->
+    <script defer src="data/quran-word-audio.js"></script>
+    <script defer src="data/quran-tevhid-meali-pages.js"></script>
+    <script defer src="js/intelligence.js"></script>
+    <script defer src="js/learning-engine.js"></script>
+    <script defer src="js/practice-judgment.js"></script>
+    <script defer src="js/capability-map.js"></script>
+    <script defer src="js/integration.js"></script>
+    <script defer src="js/metrics-engine.js"></script>
+
+    <!-- Feature modules (alphabetical, no load-order dependency).
+         V56 (audit R10): diagnostics.js, guide.js, framework-lab.js and
+         pmp-tools.js are no longer loaded eagerly — js/module-loader.js
+         injects them on first tab entry. -->
+    <script defer src="js/calendar.js"></script>
+    <script defer src="js/contacts.js"></script>
+    <script defer src="js/dashboard.js"></script>
+    <script defer src="js/daily-quran.js"></script>
+    <script defer src="js/data-mgmt.js"></script>
+    <script defer src="js/decisions.js"></script>
+    <script defer src="js/discipline.js"></script>
+    <script defer src="js/doctrine/doctrine-sources.js"></script>
+    <script defer src="js/doctrine/doctrine-modules.js"></script>
+    <script defer src="js/doctrine/doctrine-builder.js"></script>
+    <script defer src="js/doctrine/doctrine-drills.js"></script>
+    <script defer src="js/doctrine/doctrine-analytics.js"></script>
+    <script defer src="js/doctrine.js"></script>
+    <script defer src="js/focus.js"></script>
+    <script defer src="js/goals.js"></script>
+    <script defer src="js/habits.js"></script>
+    <script defer src="js/insights.js"></script>
+    <!-- V63: reflection formats + writing coach. reflection-formats.js is data
+         and must load before writing-coach.js reads it; journal-reflection.js
+         binds both into the journal modal and page. -->
+    <script defer src="data/reflection-formats.js"></script>
+    <script defer src="js/writing-coach.js"></script>
+    <script defer src="js/journal.js"></script>
+    <script defer src="js/journal-reflection.js"></script>
+    <script defer src="js/knowledge.js"></script>
+    <script defer src="js/learn.js"></script>
+    <script defer src="js/protocol.js"></script>
+    <!-- V55/V56 Quran modules. Order matters here: quran-session.js first
+         (unified state container read by the follow-along and reader
+         modules at load), then the word-level engines, then the reader
+         core, then the split Listen/Understand tabs (audit R6/R7). -->
+    <script defer src="js/quran-session.js"></script>
+    <script defer src="js/quran-audio-engine.js"></script>
+    <script defer src="js/quran-word-data.js"></script>
+    <script defer src="js/quran-follow-along.js"></script>
+    <script defer src="js/quran-study.js"></script>
+    <script defer src="js/quran.js"></script>
+    <script defer src="js/quran-listen.js"></script>
+    <script defer src="js/quran-understand.js"></script>
+    <!-- V62.4: bulk "download for offline" panel, mounted in the Understand tab -->
+    <script defer src="js/quran-offline-manager.js"></script>
+    <script defer src="js/review.js"></script>
+    <script defer src="js/science-coach.js"></script>
+    <script defer src="js/settings.js"></script>
+    <script defer src="js/srs.js"></script>
+    <script defer src="js/strategic.js"></script>
+    <script defer src="js/strategic-horizon.js"></script>
+    <script defer src="js/studylab.js"></script>
+    <script defer src="js/tasks.js"></script>
+    <script defer src="js/tracker.js"></script>
+    <script defer src="js/operator.js"></script>
+    <script defer src="js/system-health.js"></script>
+    <script defer src="js/connect.js"></script>
+
+    <!-- Router: last (binds routes after everything exists) -->
+    <script defer src="js/router.js"></script>
+    <!-- V57: consolidated phone/tablet shell and touch behavior -->
+    <script defer src="js/mobile.js"></script>
+    <script defer src="js/ui-unification.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            var guard = document.getElementById('studyosStartupGuard');
+            function showStartupError(details) {
+                if (!guard) return;
+                var archivePath = /\.zip|AppData[\/]+Local[\/]+Temp/i.test(decodeURIComponent(location.href));
+                guard.innerHTML =
+                    '<h1 class="startup-error">StudyOS could not load its application files.</h1>' +
+                    (archivePath ? '<p><strong>This file appears to be opened from inside the ZIP archive.</strong></p>' : '') +
+                    '<p>Extract the <strong>entire ZIP</strong> first. Keep <code>index.html</code> beside the <code>css</code>, <code>js</code>, <code>pages</code>, <code>modals</code>, <code>data</code>, and <code>media</code> folders, then open it again.</p>' +
+                    '<p>Missing startup checks: ' + details + '</p>';
+            }
+
+            await new Promise(function(resolve){ setTimeout(resolve, 60); });
+            var accent = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
+            var checks = {
+                styles: Boolean(accent),
+                pages: Boolean(window.STUDYOS_PAGES && document.querySelectorAll('.page').length >= 12),
+                router: typeof window.go === 'function',
+                core: typeof window.initV7UI === 'function'
+            };
+            var missing = Object.keys(checks).filter(function(key){ return !checks[key]; });
+            if (missing.length) { showStartupError(missing.join(', ')); return; }
+
+            document.body.classList.add('studyos-assets-ready');
+            try { if (window.__storageReadyPromise) await window.__storageReadyPromise; } catch (e) { console.error(e); }
+            try { window.initV7UI(); } catch (e) { console.error('StudyOS UI initialization failed', e); }
+            try { if (typeof window.refreshDashboard === 'function') window.refreshDashboard(); } catch (e) { console.error('Dashboard refresh failed', e); }
+            try { if (typeof window.renderSystemHealth === 'function') window.renderSystemHealth(); } catch (e) { console.error('System health render failed', e); }
+            try { if (typeof window.applyStudyOSUnification === 'function') window.applyStudyOSUnification(document); } catch (e) { console.error('UI unification failed', e); }
+        });
+    </script>
+</body>
+</html>

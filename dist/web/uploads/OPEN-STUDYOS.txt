@@ -1,0 +1,18 @@
+StudyOS V60.1 — Stable Unified Product System
+
+WINDOWS
+1. Right-click the ZIP and select "Extract All".
+2. Open the extracted StudyOS_V60_1_Stable folder.
+3. Double-click START_STUDYOS_WINDOWS.bat.
+
+IMPORTANT
+Do not double-click index.html while browsing inside the ZIP. Windows temporarily extracts only index.html, so the css, js, pages, data, and media folders cannot load. The screenshot showing plain text is the exact result of opening the application inside the ZIP.
+
+DIRECT OPEN
+After extraction, index.html can also be opened directly because all sibling folders are present.
+
+MOBILE
+Use the generated StudyOS_V60_1_Full_App.html build for direct Android opening. It is compiled from this same modular source and is not a separately maintained codebase.
+
+QURAN
+Quran > Read > Layout > Mushaf Page displays one Quran page at a time.

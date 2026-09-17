@@ -1,0 +1,626 @@
+/* =====================================================================
+   StudyOS V57 — Mobile compatibility layer
+   Loaded after styles.css and design-system.css so this file is the
+   single final authority for phone/tablet shell behavior.
+   ===================================================================== */
+
+html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    overflow-x: clip;
+}
+
+body {
+    min-width: 0;
+    overflow-x: clip;
+    overscroll-behavior-y: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+button,
+.btn,
+[role="button"],
+a,
+input,
+select,
+textarea {
+    touch-action: manipulation;
+}
+
+img,
+svg,
+canvas,
+video,
+audio {
+    max-width: 100%;
+}
+
+/* Prevent long tokens, URLs, hashes, and generated text from widening pages. */
+.card,
+.panel,
+.summary-card,
+.modal-content,
+.page,
+.tab-panel,
+#pageContainer,
+.studyos-page {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+@media (hover: none), (pointer: coarse) {
+    .card:hover,
+    .panel:hover,
+    .study-technique-card:hover,
+    .is-clickable:hover,
+    .learning-action-card:hover,
+    .pathway-overview-card:hover,
+    .nav-link:hover {
+        transform: none;
+    }
+}
+
+@media (max-width: 900px) {
+    
+
+    html,
+    body,
+    .app,
+    .main,
+    #pageContainer,
+    .page,
+    .tab-panel,
+    .studyos-page {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    body.mobile-drawer-open {
+        overflow: hidden;
+        touch-action: none;
+    }
+
+    .main {
+        margin-left: 0 !important;
+        padding-left: max(16px, env(safe-area-inset-left)) !important;
+        padding-right: max(16px, env(safe-area-inset-right)) !important;
+        padding-bottom: calc(var(--mobile-nav-height) + 32px + env(safe-area-inset-bottom)) !important;
+    }
+
+    #pageContainer {
+        margin-inline: auto;
+    }
+
+    .app-topbar {
+        top: 0;
+        width: 100%;
+        max-width: none;
+        min-width: 0;
+        padding-left: 50px !important;
+        padding-right: 0;
+        padding-top: env(safe-area-inset-top);
+        height: calc(var(--topbar-height) + env(safe-area-inset-top));
+        gap: 8px;
+    }
+
+    .topbar-context {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+
+    .topbar-context strong {
+        display: block;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .topbar-actions {
+        flex: 0 0 auto;
+        gap: 6px !important;
+    }
+
+    .topbar-actions button,
+    .hamburger {
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    .hamburger {
+        top: calc(10px + env(safe-area-inset-top)) !important;
+        left: max(10px, env(safe-area-inset-left)) !important;
+        z-index: 1200 !important;
+    }
+
+    .sidebar {
+        position: fixed;
+        inset: 0 auto 0 0;
+        left: calc(-1 * var(--mobile-sidebar-width)) !important;
+        width: var(--mobile-sidebar-width) !important;
+        height: var(--app-viewport-height);
+        max-height: 100dvh;
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: max(18px, env(safe-area-inset-bottom));
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+        z-index: 1100 !important;
+        transition: transform .22s ease !important;
+        transform: translateX(0);
+        will-change: transform;
+    }
+
+    .sidebar.open {
+        left: calc(-1 * var(--mobile-sidebar-width)) !important;
+        transform: translateX(var(--mobile-sidebar-width));
+    }
+
+    .sidebar-overlay {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 1050 !important;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        background: rgba(2, 6, 23, .58);
+        backdrop-filter: blur(2px);
+        transition: opacity .18s ease, visibility .18s ease;
+    }
+
+    .sidebar-overlay.show {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    .nav-link {
+        min-height: 48px;
+    }
+
+    .mobile-nav {
+        left: max(8px, env(safe-area-inset-left)) !important;
+        right: max(8px, env(safe-area-inset-right)) !important;
+        bottom: max(8px, env(safe-area-inset-bottom)) !important;
+        width: auto;
+        min-height: var(--mobile-nav-height);
+        grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+        padding: 6px !important;
+        overflow: hidden;
+        isolation: isolate;
+    }
+
+    .mobile-nav button {
+        min-width: 0;
+        min-height: 56px !important;
+        padding: 6px 2px !important;
+        line-height: 1.15;
+        white-space: nowrap;
+    }
+
+    /* The active tab in long tab bars is kept visible by js/mobile.js. */
+    .filter-bar,
+    .page > .filter-bar,
+    [role="tablist"].filter-bar {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        width: 100%;
+        max-width: 100%;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        scroll-snap-type: x proximity;
+        scroll-padding-inline: 8px;
+        overscroll-behavior-inline: contain;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .filter-bar::-webkit-scrollbar,
+    [role="tablist"].filter-bar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .filter-bar .filter-btn,
+    [role="tablist"].filter-bar .filter-btn {
+        flex: 0 0 auto !important;
+        min-height: 44px !important;
+        scroll-snap-align: center;
+    }
+
+    /* Touch target baseline for primary controls. */
+    button:not([type="checkbox"]),
+    .btn,
+    a.btn,
+    [role="button"]:not(.quran-word-token) {
+        min-height: 44px;
+    }
+
+    /* iOS and Android browsers zoom focused fields below 16px. */
+    input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="hidden"]),
+    select,
+    textarea,
+    .input,
+    .form-input,
+    .form-select,
+    .form-textarea {
+        max-width: 100%;
+        min-height: 44px;
+        font-size: 16px !important;
+    }
+
+    textarea,
+    .form-textarea {
+        min-height: 112px;
+    }
+
+    input[type="checkbox"],
+    input[type="radio"] {
+        width: 20px;
+        height: 20px;
+        min-width: 20px;
+        accent-color: var(--accent);
+    }
+
+    .page-header,
+    .page-header-layout,
+    .page-header-primary,
+    .page-header-section {
+        min-width: 0;
+    }
+
+    .page-actions {
+        display: grid !important;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        width: 100%;
+    }
+
+    .page-actions .btn {
+        width: 100%;
+    }
+
+    /* Inline desktop grids that previously escaped older responsive rules. */
+    #doctrineView > .grid,
+    #doctrineView .grid[style*="340px 1fr"],
+    #doctrineView .grid[style*="420px 1fr"],
+    #doctrineView .grid[style*="340px 1fr"],
+    #knowledgeContainer > div[style*="minmax(320px"],
+    .studyos-page [style*="grid-template-columns: 340px 1fr"],
+    .studyos-page [style*="grid-template-columns: 420px 1fr"],
+    .studyos-page [style*="grid-template-columns:minmax(320px"],
+    .studyos-page [style*="grid-template-columns: minmax(320px"] {
+        grid-template-columns: minmax(0, 1fr) !important;
+    }
+
+    #doctrineDetail,
+    #doctrineIndex,
+    #builderWorkspace,
+    #doctrineSourceDetail {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    /* Wide data views remain usable through local horizontal scrolling. */
+    table.table,
+    .table-wrap,
+    .responsive-table,
+    .pmp-table,
+    .diagnostics-table {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        overflow-x: auto;
+        overscroll-behavior-inline: contain;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    pre,
+    code,
+    .source-hash,
+    .quran-source-hash {
+        max-width: 100%;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+    }
+
+    .calendar-grid {
+        min-width: 0;
+    }
+
+    .calendar-header,
+    .calendar-day {
+        min-width: 0;
+    }
+
+    .calendar-day {
+        min-height: 58px !important;
+        padding: 4px !important;
+    }
+
+    /* Quran phone layout. */
+    .quran-reader-shell,
+    .quran-audio-shell,
+    .quran-understand-shell {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .quran-surah-select,
+    .quran-audio-selectors select,
+    .quran-validator-form input,
+    .quran-validator-form select,
+    .quran-validator-form textarea {
+        width: 100%;
+        min-width: 0 !important;
+    }
+
+    .quran-audio-source-note span {
+        min-width: 0 !important;
+    }
+
+    .quran-arabic-text,
+    .quran-audio-current-arabic,
+    .quran-audio-row-arabic,
+    .daily-quran-arabic {
+        overflow-wrap: normal;
+        word-break: normal;
+    }
+
+    audio {
+        width: 100%;
+        min-height: 44px;
+    }
+
+    /* Overlay surfaces and forms. */
+    .command-palette {
+        padding: calc(10px + env(safe-area-inset-top)) max(10px, env(safe-area-inset-right)) calc(10px + env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left));
+    }
+
+    .command-palette-box {
+        max-height: calc(var(--app-viewport-height) - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 20px);
+    }
+
+    .focus-overlay {
+        min-height: var(--app-viewport-height);
+        padding: max(18px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+        overflow-y: auto;
+    }
+
+    .toast {
+        left: max(12px, env(safe-area-inset-left));
+        right: max(12px, env(safe-area-inset-right));
+        bottom: calc(var(--mobile-nav-height) + 24px + env(safe-area-inset-bottom));
+        width: auto;
+        max-width: none;
+        transform: translateY(16px);
+    }
+
+    .toast.show {
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 600px) {
+    
+
+    .main {
+        padding-left: max(12px, env(safe-area-inset-left)) !important;
+        padding-right: max(12px, env(safe-area-inset-right)) !important;
+    }
+
+    .topbar-context > span:first-child,
+    .topbar-divider,
+    .commitment-bell-label,
+    .topbar-focus > span:last-child,
+    .topbar-capture .capture-label {
+        display: none !important;
+    }
+
+    .commitment-bell,
+    .topbar-capture,
+    .topbar-focus {
+        width: 44px !important;
+        min-width: 44px !important;
+        padding-inline: 0 !important;
+        justify-content: center;
+    }
+
+    .commitment-bell-count {
+        position: absolute;
+        top: 2px;
+        right: 2px;
+        min-width: 16px;
+        height: 16px;
+        padding: 0 3px;
+        font-size: .58rem;
+    }
+
+    .commitment-bell {
+        position: relative;
+    }
+
+    .page-header h1,
+    .page-header h2,
+    .page-title {
+        line-height: 1.15;
+    }
+
+    .summary-strip,
+    .stats-grid,
+    .metric-grid,
+    .learning-summary-metrics,
+    .capture-metrics,
+    #knowledgeStats .summary-strip {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+
+    .summary-card,
+    .metric-card {
+        min-width: 0;
+    }
+
+    .form-row,
+    .quran-audio-selectors,
+    .quran-validator-form,
+    .citation-line,
+    .communication-outcome-scale {
+        grid-template-columns: minmax(0, 1fr) !important;
+    }
+
+    .communication-outcome-scale {
+        overflow-x: visible !important;
+    }
+
+    .modal {
+        align-items: flex-end;
+        padding: 0 !important;
+    }
+
+    .modal .modal-content,
+    .modal-content {
+        width: 100% !important;
+        max-width: 100% !important;
+        max-height: calc(var(--app-viewport-height) - env(safe-area-inset-top)) !important;
+        margin: 0 !important;
+        border-radius: 18px 18px 0 0 !important;
+        padding-bottom: max(16px, env(safe-area-inset-bottom));
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .modal-footer,
+    .modal-actions {
+        position: sticky;
+        bottom: 0;
+        z-index: 2;
+        padding-bottom: max(8px, env(safe-area-inset-bottom));
+        background: var(--bg-secondary);
+    }
+
+    .modal-footer .btn,
+    .modal-actions .btn {
+        flex: 1 1 100%;
+        width: 100%;
+    }
+
+    .quran-reader-shell,
+    .quran-audio-shell {
+        padding: 5px !important;
+    }
+
+    .quran-reader-toolbar,
+    .quran-audio-toolbar,
+    .quran-audio-now-playing,
+    .quran-audio-source-note,
+    .quran-audio-surah-list,
+    .quran-surah-card,
+    .quran-integrity-card,
+    .quran-reference-card,
+    .quran-validator-card {
+        padding: 12px !important;
+    }
+
+    .quran-audio-toggles {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+
+    .quran-audio-toggles label {
+        min-height: 44px;
+    }
+
+    .quran-audio-transport .btn {
+        width: 100%;
+    }
+
+    .quran-verse-card,
+    .quran-page-passage {
+        scroll-margin-top: calc(var(--topbar-height) + 12px);
+    }
+
+    .daily-quran-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .daily-quran-actions .btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 360px) {
+    .main {
+        padding-left: max(8px, env(safe-area-inset-left)) !important;
+        padding-right: max(8px, env(safe-area-inset-right)) !important;
+    }
+
+    .mobile-nav {
+        left: max(4px, env(safe-area-inset-left)) !important;
+        right: max(4px, env(safe-area-inset-right)) !important;
+        padding-inline: 3px !important;
+    }
+
+    .mobile-nav button {
+        font-size: .58rem !important;
+    }
+
+    .mobile-nav button .ui-icon {
+        width: 18px !important;
+        height: 18px !important;
+    }
+
+    .summary-strip,
+    .stats-grid,
+    .metric-grid,
+    .learning-summary-metrics,
+    .capture-metrics,
+    #knowledgeStats .summary-strip {
+        gap: 8px !important;
+    }
+
+    .summary-card,
+    .metric-card,
+    .card,
+    .panel {
+        border-radius: 12px;
+    }
+
+    .page-actions {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-height: 520px) and (orientation: landscape) and (max-width: 900px) {
+    
+
+    .mobile-nav {
+        min-height: 58px;
+        padding-block: 3px !important;
+    }
+
+    .mobile-nav button {
+        min-height: 50px !important;
+        flex-direction: row;
+        gap: 5px;
+    }
+
+    .app-topbar {
+        margin-bottom: 10px;
+    }
+
+    .focus-overlay {
+        justify-content: flex-start;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sidebar,
+    .sidebar-overlay,
+    .mobile-nav,
+    .toast {
+        transition: none !important;
+    }
+}
