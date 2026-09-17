@@ -1,0 +1,10 @@
+STUDYOS V61 — CLAUDE DESIGN
+
+EASIEST:
+Open StudyOS_V61_Claude_Design_Full_App.html directly in Chrome, Edge, or Samsung Internet.
+
+MODULAR SOURCE:
+Extract the complete modular source ZIP before opening index.html. Do not open index.html while it remains inside a ZIP archive.
+
+WHAT CHANGED:
+V61 uses the actual page structures from the supplied StudyOS.dc.html design prototype. It is not the previous CSS-only approximation.

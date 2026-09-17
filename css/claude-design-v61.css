@@ -1,0 +1,21 @@
+/* StudyOS V61 — Claude Design refinement layer
+   V62.1: this file used to open with a rule that hid the compatibility-roots
+   wrapper unconditionally. That wrapper existed only to hold the duplicate
+   page markup V61 left behind when it transplanted the design prototype over
+   the live templates. The duplicate markup is gone, so the rule has nothing
+   left to hide — and while it existed it also hid 61 live render targets and
+   34 wired controls. tools/verify.js now guards against its return.
+
+   The `.claude-design-page` hook is now applied by js/ui-unification.js at
+   runtime (alongside `studyos-page`), so these refinements follow live markup
+   and dynamically rendered content instead of a frozen snapshot. Metric
+   selectors also match the runtime-applied `ui-metric-*` classes. */
+.claude-design-page>.page-header-primary{margin-bottom:16px!important}
+.claude-design-page>.filter-bar{position:sticky;top:54px;z-index:25;background:color-mix(in srgb,var(--bg-primary) 94%,transparent);backdrop-filter:blur(12px);padding:8px 0}
+.claude-design-page .metric-grid,.claude-design-page .ui-metric-grid{grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.claude-design-page .metric-card,.claude-design-page .ui-metric-card{min-height:104px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.claude-design-page .metric-card>div:first-child,.claude-design-page .ui-metric-card>div:first-child{font-family:var(--font-mono);font-size:1.65rem;font-weight:800;color:var(--text-primary)}
+.claude-design-page .metric-card>div:last-child,.claude-design-page .ui-metric-card>div:last-child{margin-top:5px;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted)}
+.claude-design-page .card{box-shadow:var(--shadow-1)}
+.claude-design-page .page-header-section{margin-top:0}
+@media (max-width: 760px){.claude-design-page>.filter-bar{top:48px}.claude-design-page .metric-grid,.claude-design-page .ui-metric-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.claude-design-page .metric-card,.claude-design-page .ui-metric-card{min-height:86px}}

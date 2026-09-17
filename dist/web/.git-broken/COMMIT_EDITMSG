@@ -1,0 +1,22 @@
+Phase 1: reverse the V61 template transplant
+
+Restores the 10 V57 page templates that V61 replaced with a design-prototype
+snapshot, and strips the .compatibility-roots wrapper from quran.page.js
+(keeping V62's genuine "Open Mushaf Reader" addition).
+
+Fixes:
+  - 34 static controls that had no event handler
+  - 61 live render targets buried in display:none!important markup
+  - fabricated dashboard metrics frozen into the templates
+
+The V60/V61 visual design is preserved: js/ui-unification.js already applies
+it at runtime, to live and dynamically rendered markup alike, so the design
+hooks no longer need to be hard-coded into templates.
+
+  pages/*.page.js            10 restored from V57; quran compat block removed
+  js/ui-unification.js       applies claude-design-page; adds mushaf label
+  css/claude-design-v61.css  drops the .compatibility-roots hide rule
+  tools/verify.js            +3 UI-integrity guards (verified to fail red)
+  tools/test-ui-v60.js       4 static assertions -> runtime assertions
+
+verify 22/22, all Quran/UI suites pass, 7/7 dataset hashes unchanged.

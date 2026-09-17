@@ -1,0 +1,46 @@
+{
+  "release": "StudyOS V53",
+  "purpose": "Non-mutating Quran Arabic validation",
+  "generatedUtc": "2026-07-24T00:00:00Z",
+  "source": {
+    "package": "quran-validator",
+    "version": "1.3.0",
+    "author": "Yazin Alirhayim",
+    "license": "MIT",
+    "repository": "https://github.com/yazinsai/quran-validator",
+    "referenceData": "data/quran-verses.min.json",
+    "referenceDataSha256": "ddd89dcb757453fe93811cb2a745ef8ba7a0ce97cd7125fcf5ee8932cddfb653",
+    "uploadedArchiveSha256": "c877619b84638b2de906a24cfe44863d238d07952411c9806f06114d5261bccf",
+    "reference": "QUL / QURANIC Universal Library data bundled with the uploaded package"
+  },
+  "studyOS": {
+    "file": "data/quran-verses.js",
+    "verseCount": 6236,
+    "surahCount": 114,
+    "firstReference": "1:1",
+    "lastReference": "114:6",
+    "canonicalProjectionSha256": "ddd89dcb757453fe93811cb2a745ef8ba7a0ce97cd7125fcf5ee8932cddfb653"
+  },
+  "checks": {
+    "verseCountMatches": true,
+    "referenceOrderMatches": true,
+    "uthmaniExactMatches": 6236,
+    "simpleExactMatches": 6236,
+    "allUthmaniTextExact": true,
+    "allSimpleTextExact": true,
+    "mismatchCount": 0,
+    "mismatches": []
+  },
+  "runtimePolicy": {
+    "autoCorrectEnabled": false,
+    "sourceMutationAllowed": false,
+    "userInputMutationAllowed": false,
+    "acceptedMatchTypes": [
+      "exact",
+      "normalized"
+    ],
+    "partialMatchesAccepted": false,
+    "fuzzyMatchesAccepted": false,
+    "note": "The validator reports results and may display the canonical stored source for comparison. It never rewrites StudyOS Quran data or pasted user input."
+  }
+}

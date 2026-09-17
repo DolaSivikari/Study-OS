@@ -1,0 +1,44 @@
+{
+  "source": "media/quran-reference/tevhid-meali.pdf",
+  "sourceSha256": "b079c3d7aba62ae433528d962a9822d65be30183ca12ddb5c0ee96d4d7e456df",
+  "verseCount": 6236,
+  "expectedVerseCount": 6236,
+  "surahCount": 114,
+  "combinedRanges": [
+    {
+      "surah": 20,
+      "start": 27,
+      "end": 28,
+      "page": 334
+    },
+    {
+      "surah": 37,
+      "start": 22,
+      "end": 23,
+      "page": 452,
+      "sourceNumbering": "unnumbered between 21 and 24"
+    }
+  ],
+  "combinedRangeCount": 2,
+  "errors": [],
+  "samples": {
+    "1:1": "Er-Rahmân ve Er-Rahîm olan Allah’ın adıyla (okumaya başlıyorum).",
+    "1:7": "Kendisine nimet verdiklerinin yoluna (ilet). Gazaba uğramış ve sapkınların (yoluna) değil.",
+    "2:1": "Elif, Lâm, Mîm.",
+    "2:286": "Allah kimseye gücünden fazlasını yüklemez. Herkesin kazandığı (hayır) lehine, yaptığı (günahlar da) aleyhinedir. “Rabbimiz! Unutur ya da hata edersek bizleri sorumlu tutma. Rabbimiz! Bizden öncekilere yüklediğin gibi ağır bir yük taşıtma bize. Rabbimiz! Gücümüz yetmeyen şeyleri bize yükletme. Bizi affet. Bizi bağışla. Bize merhamet et. Sen bizim mevlâmızsın/dostumuzsun. Kâfirler topluluğuna karşı bize yardım et.”",
+    "3:177": "Şüphesiz ki imanı küfürle değişen kimseler, Allah’a hiçbir zarar veremezler. Onlar için can yakıcı bir azap vardır.",
+    "3:178": "Kâfirler sanmasın ki kendilerine mühlet veriyor oluşumuz onlar için hayırdır. Ancak günahları artsın diye onlara mühlet veririz. Onlara alçaltıcı bir azap vardır.",
+    "112:1": "De ki: “O Allah (zatında, sıfatlarında ve fiillerinde) birdir.”",
+    "114:6": "“Cinlerden ve insanlardan olan.”"
+  },
+  "samplePages": {
+    "1:1": 66,
+    "1:7": 67,
+    "2:1": 68,
+    "2:286": 109,
+    "3:177": 128,
+    "3:178": 128,
+    "112:1": 606,
+    "114:6": 607
+  }
+}
