@@ -61,7 +61,6 @@ window.STUDYOS_PAGES.dashboard = String.raw`
                 </div>
                 </div>
             </details>
-            </div>
 
             <!-- V49: one random Quran passage per StudyOS opening.
                  Arabic and Tevhid Meali strings are read directly from the

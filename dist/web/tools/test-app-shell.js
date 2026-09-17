@@ -27,7 +27,7 @@ check('Shell owns the application mount points',
 check('Shell preserves priority navigation',
   ['tasks', 'goals', 'calendar', 'tracker', 'review'].every(route => shell.includes(`data-route="${route}"`)));
 check('Shell remains a standalone classic script',
-  !/import\s+|export\s+/.test(shell) && /mount\.innerHTML/.test(shell));
+  !/import\s+|export\s+/.test(shell) && /insertAdjacentHTML\('beforebegin', shellMarkup\)/.test(shell));
 check('Router explicitly exports the shell navigation API',
   /window\.go\s*=\s*go/.test(read('js/router.js'))
   && /window\.goTab\s*=\s*goTab/.test(read('js/router.js')));

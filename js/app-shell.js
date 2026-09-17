@@ -10,7 +10,7 @@
         return;
     }
 
-    mount.innerHTML = String.raw`
+    var shellMarkup = String.raw`
     <button class="hamburger" type="button" onclick="toggleSidebar()" aria-label="Open navigation" aria-controls="primarySidebar" aria-expanded="false"><span data-icon="menu"></span></button>
     <div class="sidebar-overlay" onclick="toggleSidebar()" aria-hidden="true"></div>
     <div class="app">
@@ -137,14 +137,9 @@
         </div>
     </div>`;
 
-    // Keep routing functional when a host strips inline handlers from dynamic
-    // markup. Existing onclick attributes remain the readable fallback.
-    mount.onclick = function (event) {
-        var control = event.target.closest ? event.target.closest('[data-route]') : null;
-        if (!control || typeof window.go !== 'function') return;
-        var route = control.getAttribute('data-route');
-        if (!route || event.defaultPrevented) return;
-        event.preventDefault();
-        window.go(route);
-    };
+    // Replace the bootstrap placeholder with the same direct body-level shell
+    // structure used by the original document. This preserves CSS selectors
+    // and avoids a wrapper changing the app's layout or event ownership.
+    mount.insertAdjacentHTML('beforebegin', shellMarkup);
+    mount.remove();
 })();

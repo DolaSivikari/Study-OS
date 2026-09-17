@@ -168,6 +168,36 @@ const registeredPages = new Set();
   }
 }
 
+// A page can still pass route/ID checks while leaking content outside its
+// `.page` wrapper. Keep every page template balanced with exactly one root.
+{
+  const rootFindings = [];
+  const voidTags = /^(?:area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/i;
+  for (const source of jsSources.filter(s => s.file.startsWith('pages/'))) {
+    const markupMatch = source.code.match(/String\.raw`([\s\S]*)`\s*;\s*$/);
+    if (!markupMatch) continue;
+    let depth = 0;
+    let roots = 0;
+    const tagRe = /<\/?([A-Za-z][\w:-]*)\b[^>]*>/g;
+    let match;
+    while ((match = tagRe.exec(markupMatch[1])) !== null) {
+      const tag = match[0];
+      const name = match[1];
+      if (tag.startsWith('</')) {
+        depth--;
+      } else if (!tag.endsWith('/>') && !voidTags.test(name)) {
+        if (depth === 0) roots++;
+        depth++;
+      }
+    }
+    if (roots !== 1) {
+      rootFindings.push(source.file + ' has ' + roots + ' root elements (final depth ' + depth + ')');
+    }
+  }
+  check('Page templates have one root element', rootFindings.length === 0,
+    rootFindings.join(' | ') || 'all page templates have one root');
+}
+
 // Inline <script> blocks (no src=) in index.html
 const inlineScripts = [];
 {
