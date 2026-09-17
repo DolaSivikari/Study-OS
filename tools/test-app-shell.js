@@ -28,6 +28,9 @@ check('Shell preserves priority navigation',
   ['tasks', 'goals', 'calendar', 'tracker', 'review'].every(route => shell.includes(`data-route="${route}"`)));
 check('Shell remains a standalone classic script',
   !/import\s+|export\s+/.test(shell) && /mount\.innerHTML/.test(shell));
+check('Router explicitly exports the shell navigation API',
+  /window\.go\s*=\s*go/.test(read('js/router.js'))
+  && /window\.goTab\s*=\s*goTab/.test(read('js/router.js')));
 check('Portable build can inline the shell source',
   read('tools/build-universal.js').includes("inlineScript(src, read(src))"));
 

@@ -242,7 +242,12 @@ function go(target) {
     if (page !== 'mushaf' && dedicatedMushafRoot) dedicatedMushafRoot.innerHTML = '';
     
     // Switch page
-    document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+    document.querySelectorAll('.page').forEach(function(p) {
+        var active = p.id === page;
+        p.classList.toggle('active', active);
+        p.hidden = !active;
+        p.setAttribute('aria-hidden', active ? 'false' : 'true');
+    });
     document.querySelectorAll('.nav-link').forEach(function(n) { n.classList.remove('active'); });
     
     var el = document.getElementById(page);
@@ -375,3 +380,11 @@ function renderForTab(tab) {
         case 'quranunderstand': if(typeof renderQuranUnderstand==='function') renderQuranUnderstand(); break;
     }
 }
+
+// The application shell is loaded as a separate module and invokes routing
+// through window. Export the public route API explicitly instead of relying on
+// classic-script global declaration behavior.
+window.PAGE_MAP = PAGE_MAP;
+window.NAV_DESTINATIONS = NAV_DESTINATIONS;
+window.go = go;
+window.goTab = goTab;

@@ -136,4 +136,15 @@
             <button class="btn btn-danger btn-sm" onclick="stopStudyTimer()"><span data-icon="stop"></span>Stop</button>
         </div>
     </div>`;
+
+    // Keep routing functional when a host strips inline handlers from dynamic
+    // markup. Existing onclick attributes remain the readable fallback.
+    mount.onclick = function (event) {
+        var control = event.target.closest ? event.target.closest('[data-route]') : null;
+        if (!control || typeof window.go !== 'function') return;
+        var route = control.getAttribute('data-route');
+        if (!route || event.defaultPrevented) return;
+        event.preventDefault();
+        window.go(route);
+    };
 })();

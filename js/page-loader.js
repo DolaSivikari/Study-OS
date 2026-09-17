@@ -44,6 +44,16 @@
 
     container.innerHTML = html;
 
+    // Keep page routing correct even if a stylesheet is delayed, blocked, or
+    // overridden. Only the dashboard is mounted on first paint; router.js
+    // owns subsequent page visibility.
+    Array.prototype.forEach.call(container.querySelectorAll('.page'), function(page) {
+        var isHome = page.id === 'dashboard';
+        page.classList.toggle('active', isHome);
+        page.hidden = !isHome;
+        page.setAttribute('aria-hidden', isHome ? 'false' : 'true');
+    });
+
     if (failed.length > 0) {
         console.warn('PageLoader: Missing page content (checked window.STUDYOS_PAGES and <template>):', failed);
     }

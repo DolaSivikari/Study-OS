@@ -1,5 +1,5 @@
 /* StudyOS V62 generated service worker */
-const CACHE_NAME = 'studyos-v62-4c771277c8e2';
+const CACHE_NAME = 'studyos-v62-db6d42b30ec1';
 const APP_FILES = [
   "./DOM-ID-PRESERVATION.json",
   "./PROTECTED-DATA-HASHES.json",
